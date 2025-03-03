@@ -5,7 +5,7 @@ data class Chat(
     private var idMessage: Long = 1
     private var readMessage: Boolean = false // True, если все сообщения в чате прочитаны и false, если нет
 
-    fun addMessage(mess: String) {
+    fun addMessage(mess: String) { // Добавление сообщения в чат
         val message = Message(
             mess,
             idMessage
@@ -14,15 +14,16 @@ data class Chat(
         messageList.add(message)
     }
 
-    override fun toString(): String {
-        return "Cобеседник $idChatPartner$messageList\n"
+    fun delMessage(idMessage: Long): Boolean { //Удаляет сообщение по его идентификатору
+        return messageList.removeAll { it.getId() == idMessage }
     }
 
-    fun getIdChat(): Long {
+    fun getIdChat(): Long { // Возвращает идентификатор собеседника
         return idChatPartner
     }
 
-    fun getChatMessage(): MutableList<Message> {
-        return messageList
+    override fun toString(): String { // Возвращает список сообщений в чате
+        return "Собеседник $idChatPartner " +if (messageList.size != 0) messageList.toString() + "\n"
+        else "Сообщений нет\n"
     }
 }

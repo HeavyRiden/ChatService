@@ -8,4 +8,8 @@ data class Message(
         return message
     }
 
+    fun getId(): Long {
+        return idMessage
+    }
+
 }
