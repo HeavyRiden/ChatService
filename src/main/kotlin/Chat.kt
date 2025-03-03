@@ -19,6 +19,13 @@ data class Chat(
         return idChatPartner
     }
 
+    fun editMessage(idMessage: Long, mess: String): Boolean { // Редактирует сообщение по id
+        return messageList.find { it.getId() == idMessage }?.let {
+            it.editMess(mess)
+            true
+        } == true
+    }
+
     override fun toString(): String { // Возвращает список сообщений в чате
         return "Собеседник $idChatPartner - " +
                 if (messageList.isNotEmpty()) messageList.toString() + "\n"

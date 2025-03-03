@@ -8,5 +8,7 @@ fun main() {
     chat.sendMessage(3, "Какие деньги?")
     chat.deleteMessage(1, 1)
     chat.deleteMessage(1, 2)
+    chat.editMessage(2, 2, "Пока")
+    println(chat.deleteChat(5))
     println(chat.readChatList())
 }
