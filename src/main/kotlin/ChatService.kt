@@ -21,4 +21,8 @@ class ChatService(
     fun deleteChat(idChatPartner: Long): Boolean { // Удаляет чат по id собеседника
         return listOfChat.removeAll { it.getIdChat() == idChatPartner }
     }
+
+    fun getListOfMessage(idChatPartner: Long, numberOfMessage: Int): List<Message> { // Возвращает список последних n сообщений
+        return listOfChat.find { it.getIdChat() == idChatPartner }?.getListOfMessage(numberOfMessage) ?: emptyList()
+    }
 }

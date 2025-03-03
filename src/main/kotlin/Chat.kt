@@ -26,6 +26,10 @@ data class Chat(
         } == true
     }
 
+    fun getListOfMessage(numberOfMessage: Int): List<Message> { // Возвращает список последних n сообщений
+        return messageList.take(numberOfMessage)
+    }
+
     override fun toString(): String { // Возвращает список сообщений в чате
         return "Собеседник $idChatPartner - " +
                 if (messageList.isNotEmpty()) messageList.toString() + "\n"

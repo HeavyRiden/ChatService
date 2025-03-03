@@ -9,6 +9,5 @@ fun main() {
     chat.deleteMessage(1, 1)
     chat.deleteMessage(1, 2)
     chat.editMessage(2, 2, "Пока")
-    println(chat.deleteChat(5))
-    println(chat.readChatList())
+    println(chat.getListOfMessage(2, 5))
 }
