@@ -27,7 +27,7 @@ data class Chat(
     }
 
     fun getListOfMessage(numberOfMessage: Int): List<Message> { // Возвращает список последних n сообщений
-        return messageList.take(numberOfMessage)
+        return messageList.takeLast(numberOfMessage)
     }
 
     override fun toString(): String { // Возвращает список сообщений в чате
