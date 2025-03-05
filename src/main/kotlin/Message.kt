@@ -2,7 +2,7 @@ data class Message(
     private var message: String, // Текст сообщения
     private val idMessage: Long // Идентификатор сообщения
 ) {
-    private var read: Boolean = false // True если сообщение прочитано и false, если нет
+    var read: Boolean = false // True если сообщение прочитано и false, если нет
 
     override fun toString(): String { // Возвращает текст сообщения
         return message

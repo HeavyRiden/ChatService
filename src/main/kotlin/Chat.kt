@@ -22,12 +22,20 @@ data class Chat(
     fun editMessage(idMessage: Long, mess: String): Boolean { // Редактирует сообщение по id
         return messageList.find { it.getId() == idMessage }?.let {
             it.editMess(mess)
+            it.read = true
             true
         } == true
     }
 
     fun getListOfMessage(numberOfMessage: Int): List<Message> { // Возвращает список последних n сообщений
-        return messageList.takeLast(numberOfMessage)
+        val listOfMess = messageList.takeLast(numberOfMessage)
+        return if(listOfMess.isEmpty()) listOf(Message("Сообщений нет", 1))
+        else listOfMess
+    }
+
+    fun getLastMessage(): String { // Возвращает последнее сообщение в чате и "Сообщений нет", если чат пуст
+        val mess = messageList.lastOrNull() ?: "Сообщений нет"
+        return mess.toString()
     }
 
     override fun toString(): String { // Возвращает список сообщений в чате
