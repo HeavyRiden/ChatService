@@ -38,6 +38,15 @@ data class Chat(
         return mess.toString()
     }
 
+    fun readChat(): Boolean {
+        readMessage = true
+        return true
+    }
+
+    fun getReadChat(): Boolean {
+        return readMessage
+    }
+
     override fun toString(): String { // Возвращает список сообщений в чате
         return "Собеседник $idChatPartner - " +
                 if (messageList.isNotEmpty()) messageList.toString() + "\n"

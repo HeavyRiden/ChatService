@@ -3,7 +3,12 @@ class ChatService(
 ) {
 
     fun readChatList(): MutableList<Chat> { // Возвращает список всех чатов
+        listOfChat.forEach { it.readChat() }
         return listOfChat
+    }
+
+    fun readChatStatus(): List<Boolean>{
+        return listOfChat.map { it.getReadChat() }
     }
 
     fun sendMessage(idChatPartner: Long, mess: String): Boolean { // Создает новый чат или добавляет сообщение в существующий
