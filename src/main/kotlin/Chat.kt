@@ -2,12 +2,13 @@ data class Chat(
     private val idChatPartner: Long // Идентификатор собеседника
 ) {
     private var messageList: MutableList<Message> = mutableListOf() // Список сообщений в чате
-    private var idMessage: Long = 1
+    private var idMessage: Long = 1 // Начальный идентификатор сообщения
     private var readMessage: Boolean = false // True, если все сообщения в чате прочитаны и false, если нет
 
     fun addMessage(mess: String): Boolean { // Добавление сообщения в чат
         messageList.add(Message(mess, idMessage))
         idMessage++
+        readMessage = false
         return true
     }
 
@@ -29,23 +30,31 @@ data class Chat(
 
     fun getListOfMessage(numberOfMessage: Int): List<Message> { // Возвращает список последних n сообщений
         val listOfMess = messageList.takeLast(numberOfMessage)
-        return if(listOfMess.isEmpty()) listOf(Message("Сообщений нет", 1))
+        listOfMess.forEach { it.read = true }
+        return if (listOfMess.isEmpty()) listOf(Message("Сообщений нет", 1))
         else listOfMess
     }
 
     fun getLastMessage(): String { // Возвращает последнее сообщение в чате и "Сообщений нет", если чат пуст
-        val mess = messageList.lastOrNull() ?: "Сообщений нет"
-        return mess.toString()
+        val lastMessage = messageList.lastOrNull()
+        return if (lastMessage != null) {
+            lastMessage.read = true
+            lastMessage.toString()
+        } else {
+            "Сообщений нет"
+        }
     }
 
-    fun readChat(): Boolean {
+    fun getReadChatStatus(): Boolean {
+        if (messageList.all { it.read }) readMessage = true // Обновляем состояние, если все сообщения прочитаны
+        return readMessage
+    }
+
+    fun readChat(): Boolean { // Помечает чат как "прочитанный"
         readMessage = true
         return true
     }
 
-    fun getReadChat(): Boolean {
-        return readMessage
-    }
 
     override fun toString(): String { // Возвращает список сообщений в чате
         return "Собеседник $idChatPartner - " +
