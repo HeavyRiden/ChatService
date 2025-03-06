@@ -22,9 +22,9 @@ class ChatService(
     }
 
     fun editMessage(idChatPartner: Long, messageId: Long, mess: String): Boolean { // Обновляет сообщение
-        return listOfChat.find { it.getIdChat() == idChatPartner }?.let { chat ->
-            if (chat.editMessage(messageId, mess)) {
-                chat.getReadChatStatus()
+        return listOfChat.find { it.getIdChat() == idChatPartner }?.let {
+            if (it.editMessage(messageId, mess)) {
+                it.getReadChatStatus()
                 true
             } else {
                 false
