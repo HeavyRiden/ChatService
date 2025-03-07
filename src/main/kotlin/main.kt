@@ -5,8 +5,11 @@ fun main() {
     chat.sendMessage(1, "Как дела?")
     chat.sendMessage(1, "Все хорошо, спасибо")
     chat.sendMessage(2, "Где деньги?")
-    chat.deleteMessage(1, 2)
-    chat.getListOfSomeMessage(1, 1)
-    chat.getListOfLastMessages()
-    println(chat.getUnreadChatsCount())
+    chat.deleteMessage(2, 1)
+    println( chat.getListOfSomeMessage(2, 2))
+    //chat.getListOfLastMessages()
+    //println(chat.getUnreadChatsCount())
+    //val chatNew = Chat(1)
+    //println(chatNew.toString())
+
 }

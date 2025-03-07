@@ -23,14 +23,14 @@ data class Chat(
     fun editMessage(idMessage: Long, mess: String): Boolean { // Редактирует сообщение по id
         return messageList.find { it.getId() == idMessage }?.let {
             it.editMess(mess)
-            it.read = true
+            it.setReadStatus()
             true
         } == true
     }
 
     fun getListOfMessage(numberOfMessage: Int): List<Message> { // Возвращает список последних n сообщений
         val listOfMess = messageList.takeLast(numberOfMessage)
-        listOfMess.forEach { it.read = true }
+        listOfMess.forEach { it.setReadStatus() }
         return if (listOfMess.isEmpty()) listOf(Message("Сообщений нет", 1))
         else listOfMess
     }
@@ -38,7 +38,7 @@ data class Chat(
     fun getLastMessage(): String { // Возвращает последнее сообщение в чате и "Сообщений нет", если чат пуст
         val lastMessage = messageList.lastOrNull()
         return if (lastMessage != null) {
-            lastMessage.read = true
+            lastMessage.setReadStatus()
             lastMessage.toString()
         } else {
             "Сообщений нет"
@@ -46,7 +46,7 @@ data class Chat(
     }
 
     fun getReadChatStatus(): Boolean {
-        if (messageList.all { it.read }) readMessage = true // Обновляем состояние, если все сообщения прочитаны
+        if (messageList.all { it.readStatus() }) readMessage = true // Обновляем состояние, если все сообщения прочитаны
         return readMessage
     }
 
