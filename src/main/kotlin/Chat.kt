@@ -21,31 +21,34 @@ data class Chat(
     }
 
     fun editMessage(idMessage: Long, mess: String): Boolean { // Редактирует сообщение по id
-        return messageList.find { it.getId() == idMessage }?.let {
-            it.editMess(mess)
-            it.setReadStatus()
-            true
-        } ?: false
+        return messageList.find { it.getId() == idMessage }
+            ?.run {
+                this.editMess(mess)
+                this.setReadStatus()
+            } ?: false
     }
 
     fun getListOfMessage(numberOfMessage: Int): List<Message> { // Возвращает список последних n сообщений
-        val listOfMess = messageList.takeLast(numberOfMessage)
-        listOfMess.forEach { it.setReadStatus() }
-        return listOfMess.ifEmpty { listOf(Message("Сообщений нет", 1)) }
+        return messageList
+            .reversed()
+            .asSequence()
+            .take(numberOfMessage)
+            .onEach { it.setReadStatus() }
+            .toList()
+            .ifEmpty { listOf(Message("Сообщений нет", 1)) }
     }
 
     fun getLastMessage(): String { // Возвращает последнее сообщение в чате и "Сообщений нет", если чат пуст
-        val lastMessage = messageList.lastOrNull()
-        return if (lastMessage != null) {
-            lastMessage.setReadStatus()
-            lastMessage.toString()
-        } else {
-            "Сообщений нет"
-        }
+        return messageList.lastOrNull()?.let {
+            it.setReadStatus()
+            it.toString()
+        } ?: "Сообщений нет"
     }
 
-    fun getReadChatStatus(): Boolean {
-        if (messageList.all { it.readStatus() }) readChat = true // Обновляем состояние, если все сообщения прочитаны
+    fun getReadChatStatus(): Boolean { // Обновляем состояние, если все сообщения прочитаны
+        readChat = messageList
+            .asSequence()
+            .all { it.readStatus() }
         return readChat
     }
 
