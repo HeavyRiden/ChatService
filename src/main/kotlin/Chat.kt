@@ -3,12 +3,12 @@ data class Chat(
 ) {
     private var messageList: MutableList<Message> = mutableListOf() // Список сообщений в чате
     private var idMessage: Long = 1 // Начальный идентификатор сообщения
-    private var readMessage: Boolean = false // True, если все сообщения в чате прочитаны и false, если нет
+    private var readChat: Boolean = false // True, если все сообщения в чате прочитаны и false, если нет
 
     fun addMessage(mess: String): Boolean { // Добавление сообщения в чат
         messageList.add(Message(mess, idMessage))
         idMessage++
-        readMessage = false
+        readChat = false
         return true
     }
 
@@ -25,14 +25,13 @@ data class Chat(
             it.editMess(mess)
             it.setReadStatus()
             true
-        } == true
+        } ?: false
     }
 
     fun getListOfMessage(numberOfMessage: Int): List<Message> { // Возвращает список последних n сообщений
         val listOfMess = messageList.takeLast(numberOfMessage)
         listOfMess.forEach { it.setReadStatus() }
-        return if (listOfMess.isEmpty()) listOf(Message("Сообщений нет", 1))
-        else listOfMess
+        return listOfMess.ifEmpty { listOf(Message("Сообщений нет", 1)) }
     }
 
     fun getLastMessage(): String { // Возвращает последнее сообщение в чате и "Сообщений нет", если чат пуст
@@ -46,12 +45,12 @@ data class Chat(
     }
 
     fun getReadChatStatus(): Boolean {
-        if (messageList.all { it.readStatus() }) readMessage = true // Обновляем состояние, если все сообщения прочитаны
-        return readMessage
+        if (messageList.all { it.readStatus() }) readChat = true // Обновляем состояние, если все сообщения прочитаны
+        return readChat
     }
 
     fun readChat(): Boolean { // Помечает чат как "прочитанный"
-        readMessage = true
+        readChat = true
         return true
     }
 

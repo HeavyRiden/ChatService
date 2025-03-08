@@ -6,7 +6,7 @@ fun main() {
     chat.sendMessage(1, "Все хорошо, спасибо")
     chat.sendMessage(2, "Где деньги?")
     chat.deleteMessage(2, 1)
-    println( chat.getListOfSomeMessage(2, 2))
+    println( chat.getListOfSomeMessage(1, 0))
     //chat.getListOfLastMessages()
     //println(chat.getUnreadChatsCount())
     //val chatNew = Chat(1)

@@ -16,7 +16,7 @@ class ChatService(
     }
 
     fun deleteMessage(idChatPartner: Long, messageId: Long): Boolean { // Удаляет сообщение в чате с собеседником
-        return listOfChat.find { it.getIdChat() == idChatPartner }?.deleteMessage(messageId) == true
+        return listOfChat.find { it.getIdChat() == idChatPartner }?.deleteMessage(messageId) ?: false
     }
 
     fun editMessage(idChatPartner: Long, messageId: Long, mess: String): Boolean { // Обновляет сообщение
@@ -27,7 +27,7 @@ class ChatService(
             } else {
                 false
             }
-        } == true
+        } ?: false
     }
 
     fun deleteChat(idChatPartner: Long): Boolean { // Удаляет чат по id собеседника
@@ -38,8 +38,8 @@ class ChatService(
         idChatPartner: Long,
         numberOfMessage: Int
     ): List<Message> {
-        return listOfChat.find { it.getIdChat() == idChatPartner }?.getListOfMessage(numberOfMessage) ?: listOf(
-            Message("Чат не найден", 1)
+        return listOfChat.find { it.getIdChat() == idChatPartner }?.getListOfMessage(numberOfMessage) ?:
+        listOf(Message("Чат не найден", 1)
         )
     }
 
