@@ -69,7 +69,7 @@ class ChatTest {
     @Test
     fun readChatStatusTrue() {
         chat.addMessage("Привет")
-        chat.readChat()
+        chat.setReadChat()
         assertTrue(chat.getReadChatStatus())
     }
 
