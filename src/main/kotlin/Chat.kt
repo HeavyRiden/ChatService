@@ -37,6 +37,7 @@ data class Chat(
             .take(numberOfMessage)
             .onEach { it.setReadStatus() }
             .toList()
+            .reversed()
             .ifEmpty { listOf(Message("Сообщений нет", 1)) }
     }
 
@@ -48,7 +49,9 @@ data class Chat(
     }
 
     fun getReadChatStatus(): Boolean { // Обновляем состояние, если все сообщения прочитаны
-        if (messageList.all { it.readStatus() }) readChat = true
+        if (messageList
+                .asSequence()
+                .all { it.readStatus() }) readChat = true
         return readChat
 
     }

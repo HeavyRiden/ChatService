@@ -8,6 +8,6 @@ fun main() {
     chat.sendMessage(2, "Где деньги?")
     chat.editMessage(2, 1, "Какие деньги?")
     val ch = Chat(5)
-    //ch.addMessage("Привет")
-    println( ch.getReadChatStatus())
+
+    println(ch.getReadChatStatus())
 }
