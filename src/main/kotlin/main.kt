@@ -7,6 +7,7 @@ fun main() {
     chat.sendMessage(1, "Все хорошо, спасибо")
     chat.sendMessage(2, "Где деньги?")
     chat.editMessage(2, 1, "Какие деньги?")
-    println(chat.getListOfSomeMessage(2, 3))
-    println(chat.getUnreadChatsCount())
+    val ch = Chat(5)
+    //ch.addMessage("Привет")
+    println( ch.getReadChatStatus())
 }

@@ -48,13 +48,12 @@ data class Chat(
     }
 
     fun getReadChatStatus(): Boolean { // Обновляем состояние, если все сообщения прочитаны
-        readChat = messageList
-            .asSequence()
-            .all { it.readStatus() }
+        if (messageList.all { it.readStatus() }) readChat = true
         return readChat
+
     }
 
-    fun readChat(): Boolean { // Помечает чат как "прочитанный"
+    fun setReadChat(): Boolean { // Помечает чат как "прочитанный"
         readChat = true
         return true
     }

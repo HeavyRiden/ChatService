@@ -11,7 +11,7 @@ class ChatService(
     }
 
     fun getChatList(): MutableList<Chat> { // Возвращает список всех чатов
-        listOfChat.forEach { it.readChat() }
+        listOfChat.forEach { it.setReadChat() }
         return listOfChat
     }
 
