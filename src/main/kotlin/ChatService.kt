@@ -29,7 +29,6 @@ class ChatService(
 
     fun editMessage(idChatPartner: Long, messageId: Long, mess: String): Boolean { // Обновляет сообщение
         return listOfChat
-            .asSequence()
             .find { it.getIdChat() == idChatPartner }
             ?.run {
                 if (this.editMessage(messageId, mess)) {

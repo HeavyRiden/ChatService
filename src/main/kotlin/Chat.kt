@@ -22,7 +22,6 @@ data class Chat(
 
     fun editMessage(idMessage: Long, mess: String): Boolean { // Редактирует сообщение по id
         return messageList
-            .asSequence()
             .find { it.getId() == idMessage }
             ?.run {
                 this.editMess(mess)
@@ -49,9 +48,7 @@ data class Chat(
     }
 
     fun getReadChatStatus(): Boolean { // Обновляем состояние, если все сообщения прочитаны
-        if (messageList
-                .asSequence()
-                .all { it.readStatus() }) readChat = true
+        if (messageList.all { it.readStatus() }) readChat = true
         return readChat
 
     }
