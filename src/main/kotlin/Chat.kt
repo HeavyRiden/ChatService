@@ -31,12 +31,12 @@ data class Chat(
 
     fun getListOfMessage(numberOfMessage: Int): List<Message> { // Возвращает список последних n сообщений
         return messageList
-            .reversed()
+            .asReversed()
             .asSequence()
             .take(numberOfMessage)
             .onEach { it.setReadStatus() }
             .toList()
-            .reversed()
+            .asReversed()
             .ifEmpty { listOf(Message("Сообщений нет", 1)) }
     }
 
@@ -48,7 +48,8 @@ data class Chat(
     }
 
     fun getReadChatStatus(): Boolean { // Обновляем состояние, если все сообщения прочитаны
-        if (messageList.all { it.readStatus() }) readChat = true
+        if (messageList
+                .all { it.readStatus() }) readChat = true
         return readChat
 
     }
